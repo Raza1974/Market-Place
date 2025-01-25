@@ -1,25 +1,22 @@
+// src/app/Products/[id]/page.tsx
 
-
-import { Metadata } from "next";
-
-interface ProductPageProps {
-  params: { id: string }; // Ensure params matches the dynamic route segment type
+interface PageProps {
+  params: { id: string };
 }
 
-// Generate metadata for the product page (optional)
-export async function generateMetadata({
-  params,
-}: ProductPageProps): Promise<Metadata> {
+const ProductPage: React.FC<PageProps> = ({ params }) => {
+  const { id } = params;
+  // Logic for rendering the page based on the product ID
+  return <div>Product ID: {id}</div>;
+}
+
+export async function getServerSideProps({ params }: { params: { id: string } }) {
+  // You can fetch data for the product here
   return {
-    title: `Product: ${params.id}`,
-  };
+    props: {
+      params
+    }
+  }
 }
 
-// Dynamic Product Page
-export default function ProductPage({ params }: { params: { id: string } }) {
-  return (
-    <div>
-      <h1>Product ID: {params.id}</h1>
-    </div>
-  );
-}
+export default ProductPage;
