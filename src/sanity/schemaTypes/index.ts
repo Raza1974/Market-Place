@@ -6,7 +6,7 @@ import { shopPageSchema } from '@/sanity/schemaTypes/Shop';
 import { shipmentSchema } from './shipment';
 import { orderSchema } from './order';
 import { brandSchema } from './brand';
-import { editorChoiceSchema } from '@/sanity/schemaTypes/editorChoice';
+
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     productSchema,
@@ -16,6 +16,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     teamSchema,
     brandSchema,
     shopPageSchema,
-    editorChoiceSchema,
+    
   ],
 };
