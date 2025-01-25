@@ -1,64 +1,54 @@
-import { defineField, defineType } from 'sanity'
+import { defineType } from 'sanity';
 
-export default defineType({
+export const orderSchema = defineType({
   name: 'order',
   title: 'Order',
   type: 'document',
   fields: [
-    defineField({
-      name: 'orderNumber',
-      title: 'Order Number',
+    {
+      name: 'orderId',
+      title: 'Order ID',
       type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'customer',
-      title: 'Customer',
-      type: 'object',
-      fields: [
-        { name: 'name', type: 'string', title: 'Name' },
-        { name: 'email', type: 'string', title: 'Email' },
-        { name: 'address', type: 'text', title: 'Address' },
-      ],
-    }),
-    defineField({
-      name: 'items',
-      title: 'Items',
+      validation: (rule) => rule.required(),
+    },
+    {
+      name: 'customerName',
+      title: 'Customer Name',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    },
+    {
+      name: 'email',
+      title: 'Customer Email',
+      type: 'string',
+      validation: (rule) => rule.required().email(),
+    },
+    {
+      name: 'products',
+      title: 'Ordered Products',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'product', type: 'reference', to: [{ type: 'product' }] },
-            { name: 'quantity', type: 'number' },
-          ],
-        },
-      ],
-    }),
-    defineField({
-      name: 'total',
-      title: 'Total',
+      of: [{ type: 'reference', to: [{ type: 'product' }] }],
+    },
+    {
+      name: 'totalPrice',
+      title: 'Total Price',
       type: 'number',
-    }),
-    defineField({
+      validation: (rule) => rule.required().min(0),
+    },
+    {
       name: 'status',
-      title: 'Status',
+      title: 'Order Status',
       type: 'string',
       options: {
-        list: [
-          { title: 'Pending', value: 'pending' },
-          { title: 'Processing', value: 'processing' },
-          { title: 'Shipped', value: 'shipped' },
-          { title: 'Delivered', value: 'delivered' },
-          { title: 'Cancelled', value: 'cancelled' },
-        ],
+        list: ['Pending', 'Shipped', 'Delivered', 'Cancelled'],
       },
-    }),
-    defineField({
-      name: 'createdAt',
-      title: 'Created At',
+      validation: (rule) => rule.required(),
+    },
+    {
+      name: 'orderDate',
+      title: 'Order Date',
       type: 'datetime',
-    }),
+      validation: (rule) => rule.required(),
+    },
   ],
-})
-
+});

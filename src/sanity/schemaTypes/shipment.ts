@@ -1,49 +1,48 @@
-import { defineField, defineType } from 'sanity'
+import { defineType } from 'sanity';
 
-export default defineType({
+export const shipmentSchema = defineType({
   name: 'shipment',
   title: 'Shipment',
   type: 'document',
   fields: [
-    defineField({
-      name: 'order',
-      title: 'Order',
+    {
+      name: 'shipmentId',
+      title: 'Shipment ID',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    },
+    {
+      name: 'orderId',
+      title: 'Order ID',
       type: 'reference',
       to: [{ type: 'order' }],
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'trackingNumber',
-      title: 'Tracking Number',
-      type: 'string',
-    }),
-    defineField({
+      validation: (rule) => rule.required(),
+    },
+    {
       name: 'carrier',
       title: 'Carrier',
       type: 'string',
-    }),
-    defineField({
+      validation: (rule) => rule.required(),
+    },
+    {
+      name: 'trackingNumber',
+      title: 'Tracking Number',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    },
+    {
       name: 'status',
-      title: 'Status',
+      title: 'Shipping Status',
       type: 'string',
       options: {
-        list: [
-          { title: 'Processing', value: 'processing' },
-          { title: 'Shipped', value: 'shipped' },
-          { title: 'Delivered', value: 'delivered' },
-        ],
+        list: ['In Transit', 'Delivered', 'Returned', 'Cancelled'],
       },
-    }),
-    defineField({
-      name: 'estimatedDeliveryDate',
+      validation: (rule) => rule.required(),
+    },
+    {
+      name: 'estimatedDelivery',
       title: 'Estimated Delivery Date',
-      type: 'date',
-    }),
-    defineField({
-      name: 'actualDeliveryDate',
-      title: 'Actual Delivery Date',
-      type: 'date',
-    }),
+      type: 'datetime',
+    },
   ],
-})
-
+});

@@ -1,39 +1,46 @@
-import { defineType } from "sanity";
+import { defineType } from 'sanity';
 
-export const team = defineType({
-  name: "team",  // Schema name should generally be lowercase
-  title: "Team",  // Title should reflect the schema name
-  type: "document",
+export const teamSchema = defineType({
+  name: 'team',
+  title: 'Team Member',
+  type: 'document',
   fields: [
     {
-      name: "title",
-      title: "Title",
-      type: "string",
+      name: 'name',
+      title: 'Name',
+      type: 'string',
       validation: (rule) => rule.required(),
     },
     {
-      name: "description",
-      title: "Description",
-      type: "text",
+      name: 'position',
+      title: 'Position',
+      type: 'string',
       validation: (rule) => rule.required(),
     },
     {
-      name: "image",
-      title: "Image",
-      type: "image",
+      name: 'photo',
+      title: 'Photo',
+      type: 'image',
       validation: (rule) => rule.required(),
     },
     {
-      name: "role",
-      title: "Role",
-      type: "string",
-      validation: (rule) => rule.required(),
+      name: 'bio',
+      title: 'Biography',
+      type: 'text',
     },
     {
-      name: "socialLinks",
-      title: "Social Links",
-      type: "array",
-      of: [{ type: "url" }],
+      name: 'socialLinks',
+      title: 'Social Links',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'platform', title: 'Platform', type: 'string' },
+            { name: 'url', title: 'URL', type: 'url' },
+          ],
+        },
+      ],
     },
   ],
 });

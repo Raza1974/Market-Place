@@ -1,12 +1,21 @@
 import { SchemaTypeDefinition } from 'sanity';
-import { productSchema  } from './product';
-import shipment from './shipment';
-import order from './order';
-import { categorySchema } from '@/sanity/schemaTypes/category';  // Corrected named import
-import { team } from '@/sanity/schemaTypes/team';  // Named import here
-import { editorChoice } from '@/sanity/schemaTypes/editorchoice';  // Named import here
-import { shopPageSchema} from '@/sanity/schemaTypes/Shop';  // Named import here
-
+import { productSchema } from '@/sanity/schemaTypes/product'; 
+import { categorySchema } from '@/sanity/schemaTypes/category';
+import { teamSchema } from '@/sanity/schemaTypes/team';
+import { shopPageSchema } from '@/sanity/schemaTypes/Shop'; 
+import { shipmentSchema } from './shipment';
+import { orderSchema } from './order';
+import { brandSchema } from './brand';
+import { editorChoiceSchema } from './editorChoice';
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [productSchema , categorySchema, order, shipment, team, editorChoice,shopPageSchema ],  // use 'team' instead of 'Team'
+  types: [
+    productSchema,
+    categorySchema,
+    orderSchema,
+    shipmentSchema,
+    teamSchema,
+    brandSchema,
+    shopPageSchema,
+    editorChoiceSchema,
+  ],
 };

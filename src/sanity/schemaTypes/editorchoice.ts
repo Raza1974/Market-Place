@@ -1,49 +1,33 @@
-import { defineType } from "sanity";
+import { defineType } from 'sanity';
 
-export const editorChoice = defineType({
-  name: "editorChoice",  // Change this to match the schema's name, not "product"
-  title: "Editor Choice Product",  // You can adjust the title to better describe the schema
-  type: "document",
+export const editorChoiceSchema = defineType({
+  name: 'editorChoice',
+  title: 'Editor Choice',
+  type: 'document',
   fields: [
     {
-      name: "title",
-      title: "Title",
+      name: 'title',
+      title: 'Title',
+      type: 'string',
       validation: (rule) => rule.required(),
-      type: "string"
     },
     {
-      name: "description",
-      type: "text",
+      name: 'featuredProducts',
+      title: 'Featured Products',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'product' }] }],
+    },
+    {
+      name: 'priority',
+      title: 'Priority',
+      type: 'number',
+      description: 'Set the display priority for the editor choice item',
       validation: (rule) => rule.required(),
-      title: "Description",
     },
     {
-      name: "productImage",
-      type: "image",
-      validation: (rule) => rule.required(),
-      title: "Product Image"
+      name: 'description',
+      title: 'Description',
+      type: 'text',
     },
-    {
-      name: "price",
-      type: "number",
-      validation: (rule) => rule.required(),
-      title: "Price",
-    },
-    {
-      name: "tags",
-      type: "array",
-      title: "Tags",
-      of: [{ type: "string" }]
-    },
-    {
-      name: "discountPercentage",  // Fixed typo here, from "dicountPercentage" to "discountPercentage"
-      type: "number",
-      title: "Discount Percentage",
-    },
-    {
-      name: "isNew",
-      type: "boolean",
-      title: "New Badge",
-    }
-  ]
+  ],
 });
