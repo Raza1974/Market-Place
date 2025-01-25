@@ -1,22 +1,40 @@
 // src/app/Products/[id]/page.tsx
 
-interface PageProps {
+import React from 'react';
+
+interface ProductPageProps {
   params: { id: string };
+  productData: {
+    // Define the structure of productData based on your API response
+    id: string;
+    name: string;
+    price: number;
+    // Add other properties as needed
+  };
 }
 
-const ProductPage: React.FC<PageProps> = ({ params }) => {
+const ProductPage: React.FC<ProductPageProps> = ({ params, productData }) => {
   const { id } = params;
-  // Logic for rendering the page based on the product ID
-  return <div>Product ID: {id}</div>;
+
+  return (
+    <div>
+      <h1>Product ID: {id}</h1>
+      {/* Render product data */}
+      <pre>{JSON.stringify(productData, null, 2)}</pre>
+    </div>
+  );
+};
+
+// This function will fetch product data at build time or during server-side rendering
+export async function getProductData(id: string) {
+  // Replace this with your actual data fetching logic (e.g., fetch from an API or database)
+  const res = await fetch(`https://api.example.com/products/${id}`);
+  const data = await res.json();
+  return data;
 }
 
-export async function getServerSideProps({ params }: { params: { id: string } }) {
-  // You can fetch data for the product here
-  return {
-    props: {
-      params
-    }
-  }
+// Server Component that fetches data and passes it to the ProductPage component
+export default async function ProductPageWrapper({ params }: { params: { id: string } }) {
+  const productData = await getProductData(params.id);
+  return <ProductPage params={params} productData={productData} />;
 }
-
-export default ProductPage;
