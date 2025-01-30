@@ -5,12 +5,12 @@ import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 
-
-// Initialize the Sanity client
+// Initialize the Sanity client using environment variables
 const sanity = createClient({
-  projectId: "od6izupd", // Replace with your actual projectId
-  dataset: "market-place",
-  apiVersion: "2025-01-13", // Use your schema's API version
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID, // Use environment variable
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET, // Use environment variable
+  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION, // Use environment variable
+  token: process.env.SANITY_API_TOKEN, // Use environment variable for API token
   useCdn: true,
 });
 

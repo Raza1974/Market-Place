@@ -1,17 +1,23 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { CiSearch, CiHeart } from "react-icons/ci";
-import { RiArrowDropDownLine, RiMenu3Line, RiCloseLine } from "react-icons/ri";
-import { IoCartOutline } from "react-icons/io5";
-import { FaInstagram, FaYoutube, FaFacebookF, FaTwitter } from "react-icons/fa";
-import { FiPhone } from "react-icons/fi";
-import Image from "next/image";
-import { Button } from "./ui/button";
+import { useState } from "react"
+import { CiSearch, CiHeart } from "react-icons/ci"
+import { RiArrowDropDownLine, RiMenu3Line, RiCloseLine } from "react-icons/ri"
+import { IoCartOutline } from "react-icons/io5"
+import { FaInstagram, FaYoutube, FaFacebookF, FaTwitter } from "react-icons/fa"
+import { FiPhone } from "react-icons/fi"
+import Image from "next/image"
+import { Button } from "./ui/button"
+import { SearchModal } from "./SearchModal"
+import { WishlistModal } from "./WishlistModal"
+import { CartModal } from "./CartModal"
 
 export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false)
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
+  const [isWishlistModalOpen, setIsWishlistModalOpen] = useState(false)
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false)
 
   return (
     <header className="bg-white shadow-sm border-b w-full fixed top-0 left-0 z-50">
@@ -27,9 +33,7 @@ export default function Navbar() {
             <span>michelle.rivera@example.com</span>
           </div>
         </div>
-        <div className="text-center flex-1 hidden md:block">
-          Follow Us and get a chance to win 80% off
-        </div>
+        <div className="text-center flex-1 hidden md:block">Follow Us and get a chance to win 80% off</div>
         <div className="flex items-center space-x-4 mt-2 md:mt-0">
           Follow Us:
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram">
@@ -52,10 +56,7 @@ export default function Navbar() {
         <h1 className="text-xl md:text-2xl font-bold text-black">Bandage</h1>
 
         {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden text-black text-2xl"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
+        <button className="md:hidden text-black text-2xl" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <RiCloseLine /> : <RiMenu3Line />}
         </button>
 
@@ -70,38 +71,27 @@ export default function Navbar() {
           </a>
 
           {/* Shop Dropdown */}
-          <div className="relative">
-            <Button
-              className="flex items-center text-black"
-              onClick={() => setIsShopDropdownOpen(!isShopDropdownOpen)}
-            >
-              Shop
-              <RiArrowDropDownLine className="ml-2 text-lg" />
-            </Button>
-            {isShopDropdownOpen && (
-              <div className="absolute top-full mt-1 bg-white shadow-md rounded-md w-40">
-                <a
-                  href="/Shop"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  Shop
-                </a>
-                <a
-                  href="/DesktopTeam"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  Team
-                </a>
-                <a
-                  href="/shop2"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  Shop2
-                </a>
-              </div>
-            )}
-          </div>
+        <div className="relative">
+          <Button className="flex items-center text-white" onClick={() => setIsShopDropdownOpen(!isShopDropdownOpen)}>
+            Shop
+            <RiArrowDropDownLine className="ml-2 text-lg" />
+          </Button>
+          {isShopDropdownOpen && (
+            <div className="absolute top-full mt-1 bg-white shadow-md rounded-md w-40">
+              <a href="/Shop" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                Shop
+              </a>
+              <a href="/DesktopTeam" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                Team
+              </a>
+              <a href="/shop2" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                Shop2
+              </a>
+            </div>
+          )}
+        </div>
 
+          
           <a href="/about" className="text-gray-600 font-bold hover:text-black">
             About
           </a>
@@ -126,11 +116,23 @@ export default function Navbar() {
           <a href="./register" className="text-blue-500 font-bold hover:underline">
             Register
           </a>
-          <CiSearch className="text-xl cursor-pointer hover:text-blue-500" />
-          <CiHeart className="text-xl cursor-pointer hover:text-blue-500" />
-          <IoCartOutline className="text-xl cursor-pointer hover:text-blue-500" />
+          <CiSearch className="text-xl cursor-pointer hover:text-blue-500" onClick={() => setIsSearchModalOpen(true)} />
+          <CiHeart
+            className="text-xl cursor-pointer hover:text-blue-500"
+            onClick={() => setIsWishlistModalOpen(true)}
+          />
+          <IoCartOutline
+            className="text-xl cursor-pointer hover:text-blue-500"
+            onClick={() => setIsCartModalOpen(true)}
+          />
         </div>
       </div>
+
+      {/* Modals */}
+      <SearchModal isOpen={isSearchModalOpen} onClose={() => setIsSearchModalOpen(false)} />
+      <WishlistModal isOpen={isWishlistModalOpen} onClose={() => setIsWishlistModalOpen(false)} />
+      <CartModal isOpen={isCartModalOpen} onClose={() => setIsCartModalOpen(false)} />
     </header>
-  );
+  )
 }
+

@@ -66,7 +66,7 @@ const Header2 = () => {
           </li>
           <li>
             <Link
-              href="/product-list-page"
+              href="/product-list"
               className="block px-4 py-2 md:py-0 hover:underline hover:text-blue-500"
             >
               Product
